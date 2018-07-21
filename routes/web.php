@@ -21,7 +21,7 @@
 // Route::get('employees/store','EmployeesController@store');
 // Route::get('employees/update','EmployeesController@update');
 // Route::get('employees/show/{id}','EmployeesController@show');
-Route::resource('/employee','EmployeesController');
+//Route::resource('/employee','EmployeesController');
 // Route::get('/layout', function () {
 //     return view('layout');
 // });
@@ -35,8 +35,5 @@ Route::resource('/employee','EmployeesController');
 // }]);   
 
 //Route::get('/test', ['middleware'=> 'cors','uses'=> 'EmployeesController@test']);  
-Route::middleware('cors')->get('/test', 'EmployeesController@test');
+//Route::middleware('cors')->get('/test', 'EmployeesController@test');
 
-Route::get('/index','PagesController@index');
-Route::get('/about','PagesController@about');
-Route::get('/services','PagesController@services');

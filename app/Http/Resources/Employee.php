@@ -17,7 +17,9 @@ class Employee extends JsonResource
         // return parent::toArray($request);
         return [
             "LastName" => $this->LastName,
-            "FirstName" => $this->FirstName
+            "FirstName" => $this->FirstName,
+            "FullName" => $this->FirstName." ".$this->LastName,
+            "Version" => "1.1.1"
         ];
     }
 }

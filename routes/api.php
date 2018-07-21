@@ -18,3 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::get('employees','EmployeesController@index');
+
+Route::get('employees/test','EmployeesController@test');

@@ -10,31 +10,19 @@ use App\Http\Resources\Employee as EmployeeResource;
 
 class EmployeesController extends Controller
 {
-
-
     public function test(){
-        return "hello world";
+        $c = new Country;
+        $countries= $c->all();
+        return $countries;
     }
+
     public function index()
     {
         $emps = Employee::
         join('country','employees.Country','=','country.id')
         ->select('employees.Id','employees.LastName','employees.FirstName','employees.Age','employees.BirthDate','country.country_name','employees.created_at','employees.updated_at')
-        // ->orderBy('employees.LastName')
-        // ->get();
-        ->paginate(2);
-        return view('employee')->with('farhan', $emps);
-        //return  EmployeeResource::collection($emps);
-        //return $emps;
-    }
-
-    public function create()
-    {
-        //return "###111";
-        $c = new Country;
-        $countries= $c->all();
-        return view('create') ->with('countries',$countries) ;
-       
+        ->get();
+        return $emps;
     }
 
     public function store(Request $request)
@@ -43,7 +31,6 @@ class EmployeesController extends Controller
             'lastname'=>'required',
             'firstname'=>'required'
         ]);
-
         $employee= new Employee;
         $employee->LastName= $request->input('lastname');
         $employee->FirstName= $request->input('firstname');
@@ -51,7 +38,6 @@ class EmployeesController extends Controller
         $employee->BirthDate= $request->input('birthdate');
         $employee->Country= $request->input('country');
         $employee->save();
-       // Employee::create($request->all());
         return redirect('employee')->with('success','Employee Created');
     }
 
@@ -63,19 +49,6 @@ class EmployeesController extends Controller
         ->where('employees.Id','=',$id)
         ->get();
          return $emp;
-      
-
-    }
-
-    public function edit($id)
-    {
-        $c = new Country;
-        $countries= $c->all();
-        $emp = Employee::find($id);
-        // return $id;
-        //return view('update')->with('emp',$emp)->with('countries',$countries);
-        //return $emp;
-        return new EmployeeResource($emp);
     }
 
     public function update(Request $request, $id)
@@ -85,7 +58,6 @@ class EmployeesController extends Controller
             'firstname'=>'required'
         ]);
 
-
         $employee= Employee::find($id);
         $employee->LastName= $request->input('lastname');
         $employee->FirstName= $request->input('firstname');
@@ -94,12 +66,10 @@ class EmployeesController extends Controller
         $employee->Country= $request->input('country');
         $employee->save();
         return redirect('employee')->with('success','Employee Updated');
-
     }
 
     public function destroy($id)
     {
-        //return "THis is his ID:" . $id . " Delete";
         $emp=Employee::find($id);
         $emp->delete();
         return redirect('employee')->with('success','Employee Deleted');  ;
