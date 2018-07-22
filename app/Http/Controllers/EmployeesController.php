@@ -22,7 +22,8 @@ class EmployeesController extends Controller
         join('country','employees.Country','=','country.id')
         ->select('employees.Id','employees.LastName','employees.FirstName','employees.Age','employees.BirthDate','country.country_name','employees.created_at','employees.updated_at')
         ->get();
-        return $emps;
+        return EmployeeResource::collection($emps);
+        //return $emps;
     }
 
     public function store(Request $request)
@@ -38,7 +39,8 @@ class EmployeesController extends Controller
         $employee->BirthDate= $request->input('birthdate');
         $employee->Country= $request->input('country');
         $employee->save();
-        return redirect('employee')->with('success','Employee Created');
+        //return redirect('employee')->with('success','Employee Created');
+        return "saved";
     }
 
     public function show($id)
@@ -48,7 +50,7 @@ class EmployeesController extends Controller
         ->select('employees.Id','employees.LastName','employees.FirstName','employees.Age','employees.BirthDate','country.country_name','employees.created_at','employees.updated_at')
         ->where('employees.Id','=',$id)
         ->get();
-         return $emp;
+        return $emp;
     }
 
     public function update(Request $request, $id)

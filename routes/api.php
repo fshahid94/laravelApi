@@ -17,7 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('/employees/{id}', ['middleware'=> 'cors','uses'=> 'EmployeesController@show']);
 Route::get('employees','EmployeesController@index');
+//Route::get('/employees/{id}','EmployeesController@show');
 
 Route::get('employees/test','EmployeesController@test');
+
+Route::post('/employees', ['middleware'=> 'cors','uses'=> 'EmployeesController@store']);
